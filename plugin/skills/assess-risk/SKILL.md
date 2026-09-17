@@ -1,6 +1,6 @@
 ---
 name: assess-risk
-description: Rate a ticket against the engineering-risk rubric Abacus declares — read the ticket, read the criteria out of the tool, go and look at the code each one asks about, then write back one level and one specific rationale per criterion. Use this whenever someone wants a ticket assessed, rated, risk-scored, "weighed before we pick it up", or asks how dangerous a piece of work is — or names a ticket key (CM-00001) and asks what could go wrong with it. Not for deciding what to build (that's /colormath:gather-requirements), not for deciding how to build it (that's /colormath:plan-ticket), and not for finding defects in something already built (that's /colormath:qa). The rating is advisory: nothing here refuses anything.
+description: Rate a ticket against the engineering-risk rubric Abacus declares — read the ticket, read the criteria out of the tool, go and look at the code each one asks about, then write back one level and one specific rationale per criterion. Use this whenever someone wants a ticket assessed, rated, risk-scored, "weighed before we pick it up", or asks how dangerous a piece of work is — or names a ticket key (CM-00001) and asks what could go wrong with it. Not for deciding what to build (that's /impruve:gather-requirements), not for deciding how to build it (that's /impruve:plan-ticket), and not for finding defects in something already built (that's /impruve:qa). The rating is advisory: nothing here refuses anything.
 argument-hint: [ticket key, e.g. CM-00001 — or enough of the title to find it]
 allowed-tools: Bash Read Grep Glob mcp__abacus__get_ticket mcp__abacus__set_ticket_risk mcp__abacus__record_metric mcp__abacus__list_projects mcp__abacus__list_tickets mcp__abacus__add_comment
 ---
@@ -230,7 +230,7 @@ missing row.
   it. A ticket that changes lane because it was assessed has been moved by the
   assessment, which is the opposite of advisory.
 - **Never write `description`, `plan` or `qa_plan`.** Those belong to
-  `/colormath:gather-requirements` and `/colormath:plan-ticket`, and this skill
+  `/impruve:gather-requirements` and `/impruve:plan-ticket`, and this skill
   holds no `update_ticket` tool for exactly that reason. If the plan is wrong,
   say so in your report.
 - **Don't implement anything.** No branches, no code edits, no PRs. You are

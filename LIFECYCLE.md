@@ -1,4 +1,4 @@
-# colormath skills lifecycle
+# Impruve skills lifecycle
 
 The law for how this repo versions, releases, and reaches the people using it.
 
@@ -34,7 +34,7 @@ under them. That is the whole job, and it is why the numbers still have to mean
 something:
 
 - **MAJOR** — a skill is removed or renamed, or one changes what it does
-  enough that a person's muscle memory is now wrong. `/colormath:ship` no
+  enough that a person's muscle memory is now wrong. `/impruve:ship` no
   longer merging would be MAJOR.
 - **MINOR** — a new skill, or a new step or capability in an existing one.
 - **PATCH** — wording, ordering, a corrected instruction, a fixed reference.
@@ -142,9 +142,9 @@ and say in the PR what it scored.
 worth less than it looks.** It re-runs each case with the skill removed, which
 in general is how you tell a case that measures the skill from one that measures
 the model's defaults. But every case here invokes its skill as a **slash
-command** (`prompt: "/colormath:assess-risk CM-00301"`), and removing the skill
+command** (`prompt: "/impruve:assess-risk CM-00301"`), and removing the skill
 removes the command: the run ends at `turns: 0` with the last message `Unknown
-command: /colormath:assess-risk`. The suite then scores the model's silence.
+command: /impruve:assess-risk`. The suite then scores the model's silence.
 `assess-risk` measured a mean Δ of +0.76 that way and it means only that the
 command existed in one arm and not the other. Read the without-arm's `turns`
 before quoting a Δ; if it is 0, there is no comparison in it.
@@ -275,7 +275,7 @@ fixture bugs cheap to bisect: copy one case into a throwaway suite, cut
 `max_turns` to 1, and change one thing at a time until the pre-flight passes.
 
 A run writes to `plugin/evals/<suite>/results/`, which is gitignored: the suite
-is source, one run of it is not. So is `.colormath/`, the agent scratch
+is source, one run of it is not. So is `.impruve/`, the agent scratch
 workspace, and the older `skill-creator` eval artifacts
 (`plugin/skills/*/evals/`, `plugin/skills/qa-workspace/`), which were full of
 fixtures from whichever consumer repo they ran against.

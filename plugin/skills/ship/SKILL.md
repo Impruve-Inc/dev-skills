@@ -7,7 +7,7 @@ model: claude-sonnet-4-6
 ---
 
 Ship the current branch through the PR pipeline end to end. This repo uses
-the colormath (ColorMath/ci) gates and, optionally, its review workflow — the
+the Impruve (ColorMath/ci) gates and, optionally, its review workflow — the
 thermonuclear **review**. QA does not come from CI: the **QA plan lives on the
 ticket in Abacus**, and you execute it against a running stack. You **fix** what
 the review and the QA turn up — blockers included, without asking — and end at a
@@ -73,7 +73,7 @@ Nothing here unlinks. `unlink_pull_request` stays a person's tool.
 - Do NOT proceed to review while any gate is red.
 
 ## 3. Poll until a review lands
-First check whether this repo runs the colormath review workflow: look for a
+First check whether this repo runs the Impruve review workflow: look for a
 workflow under `.github/workflows/` whose job `uses:`
 `ColorMath/ci/.github/workflows/review.yml`. If there is none, go straight to
 step 4 with whatever formal reviews exist and say explicitly that no automated
@@ -85,9 +85,9 @@ the ticket in Abacus, and step 4 owns it end to end.
 
 Two reviewers may weigh in, and they land in **different places** — know which
 is which or you'll wait forever on the wrong one:
-- **Thermonuclear review** (the colormath review workflow): runs as a
+- **Thermonuclear review** (the Impruve review workflow): runs as a
   non-required check named `review / review` (the reusable workflow prefixes
-  the caller's job name, `review` by colormath convention) and posts its
+  the caller's job name, `review` by convention) and posts its
   findings as a PR **comment** (the bot's tracking comment), led by the marker
   line `## Thermonuclear Review`. It is **NOT** a formal review — it never
   appears in `--json reviews`, only in `--json comments`. This is the common
@@ -174,7 +174,7 @@ already covers so you don't re-test it. Write it to the ticket's `qa_plan` field
 with `mcp__abacus__update_ticket`, opening it with a line that marks its
 provenance so a later reader never mistakes it for a groomed plan:
 
-    _Authored by /colormath:ship while shipping PR #<n> — not groomed._
+    _Authored by /impruve:ship while shipping PR #<n> — not groomed._
 
 Pass only that field. Then execute it.
 

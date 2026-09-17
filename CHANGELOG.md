@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the colormath skills. Versioning per
+All notable changes to the Impruve skills. Versioning per
 [LIFECYCLE.md](LIFECYCLE.md): one SemVer stream, continuing the one these skills
 were released under in [ColorMath/ci](https://github.com/ColorMath/ci) up to
 `v4.1.0`. **Nothing pins this repo** — Claude Code tracks the default branch, so
@@ -10,7 +10,7 @@ look up here.
 Changes land under `## Unreleased`; `release/cut.sh` renames that heading to the
 version being cut and opens a fresh one. The date on a section is the date the
 release was cut, and every section is also the body of that version's
-[GitHub Release](https://github.com/ColorMath/skills/releases).
+[GitHub Release](https://github.com/Impruve-Inc/dev-skills/releases).
 
 Entries for `v4.1.0` and earlier are in
 [ColorMath/ci's changelog](https://github.com/ColorMath/ci/blob/main/CHANGELOG.md),
@@ -22,7 +22,7 @@ which still covers the gates. This repo's history begins at the extraction.
 
 ### Added
 
-- **`/colormath:assess-risk`** new skill that rates a ticket against the
+- **`/impruve:assess-risk`** new skill that rates a ticket against the
   engineering-risk rubric Abacus declares — one level and one rationale per
   criterion, written through `set_ticket_risk`. It reads the criteria and the
   levels out of the tool's own generated schema rather than carrying a copy, so
@@ -48,7 +48,7 @@ which still covers the gates. This repo's history begins at the extraction.
 ### Changed
 
 - **`README.md`, `plugin/README.md` and the marketplace description** now
-  document `/colormath:just-do-it`, which v5.4.0 shipped without adding to any
+  document `/impruve:just-do-it`, which v5.4.0 shipped without adding to any
   of the three. Nothing gates those documents —
   `release/check-manifests.sh` only checks each `SKILL.md`'s frontmatter — so a
   skill can ship undocumented, and this one had.
@@ -62,7 +62,7 @@ which still covers the gates. This repo's history begins at the extraction.
 
 ### Added
 
-- **`/colormath:just-do-it`** new skill that takes a small, well-described ticket
+- **`/impruve:just-do-it`** new skill that takes a small, well-described ticket
   from Abacus straight to a shipped PR in one session. Skips the separate
   gather-requirements and plan-ticket steps for work the user has already thought
   through. Includes a fitness check that refuses initiatives, empty descriptions,
@@ -72,13 +72,13 @@ which still covers the gates. This repo's history begins at the extraction.
 
 ### Changed
 
-- **`/colormath:implement-ticket`** QA and audit now close the "unverified" escape
+- **`/impruve:implement-ticket`** QA and audit now close the "unverified" escape
   hatch. Agents must ToolSearch for the capability before marking any item
   unverified, and the audit independently verifies each unverified reason. UI items
   must use browser tools, not curl. A disconnected tool triggers a reconnect prompt
   instead of an unverified mark.
 
-- **`/colormath:gather-requirements`** now records collaborators and a one-sentence
+- **`/impruve:gather-requirements`** now records collaborators and a one-sentence
   session summary in the metric note field, so the activity feed shows what happened
   without opening the ticket.
 
@@ -88,7 +88,7 @@ PATCH. **Clearer strategy presentation in implement-ticket step 5c.**
 
 ### Changed
 
-- **`/colormath:implement-ticket`** step 5c now requires a dependency-graph
+- **`/impruve:implement-ticket`** step 5c now requires a dependency-graph
   summary before the strategy options. Each option shows what would happen
   (e.g. which steps run in parallel), not just the strategy name. All four
   strategies are always presented, with reasons when one is not recommended.
@@ -101,17 +101,17 @@ MINOR. **Dependency graph in plans, strategy selection in implementation.**
 
 ### Changed
 
-- **`/colormath:plan-ticket`** adds a `Depends on:` field to each step,
+- **`/impruve:plan-ticket`** adds a `Depends on:` field to each step,
   derived from the Consumes/Produces interfaces. A dependency graph summary
   section is appended to the plan. The 4a step-shape table now includes
   the field.
-- **`/colormath:implement-ticket`** replaces the always-sequential workflow
+- **`/impruve:implement-ticket`** replaces the always-sequential workflow
   with a strategy decision step. The agent reads the dependency graph,
   chooses one of four strategies (inline, sequential subagents, parallel
   workflow, hybrid), assigns model tiers per step, and presents both to the
   user before any code runs. Step 3 now validates Depends on annotations.
   Consecutive same-file steps can be batched into one agent call.
-- **`/colormath:plan-initiative`** adds `Depends on` to its format check
+- **`/impruve:plan-initiative`** adds `Depends on` to its format check
   and rules.
 
 ## v5.2.0 — 2026-09-10
@@ -120,24 +120,24 @@ MINOR. **Subagent-driven planning and workflow-based implementation.**
 
 ### Changed
 
-- **`/colormath:plan-ticket`** now searches for reuse opportunities via
+- **`/impruve:plan-ticket`** now searches for reuse opportunities via
   subagents, shows three checkpoints (reuse findings, step shape, full plan),
   uses a per-step template with Reuse/Pattern/Files/Consumes/Produces fields,
   and writes a stronger QA plan with adversarial edge cases and design
   cohesion checks for UI tickets.
 
-- **`/colormath:implement-ticket`** now builds via a dynamic Workflow: one
+- **`/impruve:implement-ticket`** now builds via a dynamic Workflow: one
   agent per plan step with a task reviewer after each, a 5-round fix loop
   with model escalation (haiku to sonnet to opus), and a whole-branch review
   before QA. Progress shows natively in `/workflows`.
 
 ### Added
 
-- **`/colormath:ship`** leaves a ticket at the step its move lands on.
+- **`/impruve:ship`** leaves a ticket at the step its move lands on.
 
 ### Changed
 
-- **`/colormath:ship`** now makes a third write against the ticket: after moving
+- **`/impruve:ship`** now makes a third write against the ticket: after moving
   it to Code Complete, it sets the ticket's *step* to the one the project said
   that move lands on.
 
@@ -269,7 +269,7 @@ the truth about itself while the work is happening rather than afterwards.
   said early, while a metric is a record of what happened, which cannot be
   written until it has.
 
-  **`/colormath:qa` records nothing, deliberately.** It takes a focus area, not
+  **`/impruve:qa` records nothing, deliberately.** It takes a focus area, not
   a ticket, and the only way to give `record_metric` an id would be to pick a
   ticket the round happened to touch — a measurement filed against work it was
   not a measurement of. The skill says so, so the gap is not mistaken for an
@@ -304,24 +304,24 @@ the truth about itself while the work is happening rather than afterwards.
 
 ## v5.0.0 — 2026-09-09
 
-MAJOR. **Grooming splits into two skills.** `/colormath:refine-ticket` and
-`/colormath:refine-initiative` are gone, replaced by
-`/colormath:gather-requirements` and `/colormath:plan-ticket`. Skill renames
+MAJOR. **Grooming splits into two skills.** `/impruve:refine-ticket` and
+`/impruve:refine-initiative` are gone, replaced by
+`/impruve:gather-requirements` and `/impruve:plan-ticket`. Skill renames
 are MAJOR because nothing pins this repo — a merge here reaches every install
 on its next `/plugin` update, and anything naming the old commands (a runbook,
 a board column, a bookmark) stops resolving at that moment.
 
 ### Removed
 
-- **`/colormath:refine-ticket`** — its work is now done by two skills. The
+- **`/impruve:refine-ticket`** — its work is now done by two skills. The
   description half is `gather-requirements`; the plan half is `plan-ticket`.
-- **`/colormath:refine-initiative`** — folded whole into
+- **`/impruve:refine-initiative`** — folded whole into
   `gather-requirements`, which branches on ticket `type` and writes feature
   definitions when it is handed an initiative.
 
 ### Added
 
-- **`/colormath:gather-requirements`** — settles *what is being asked for*, for
+- **`/impruve:gather-requirements`** — settles *what is being asked for*, for
   a ticket **or** an initiative. Reads it, investigates the code and the
   decision records, interviews until the picture is complete, then writes back
   a description that stands on its own — plus, on an initiative, its feature
@@ -331,7 +331,7 @@ a board column, a bookmark) stops resolving at that moment.
   `refine-ticket` handled a task badly: it was built to produce plans, and
   Abacus refuses to write one on a task at all.
 
-- **`/colormath:plan-ticket`** — settles *how it gets built*. Takes a ticket
+- **`/impruve:plan-ticket`** — settles *how it gets built*. Takes a ticket
   whose requirements are already gathered, investigates the code at
   file-and-line level, settles the few implementation forks the requirements
   left open, then writes back a file-anchored implementation plan and an
@@ -367,7 +367,7 @@ a board column, a bookmark) stops resolving at that moment.
   guess.
 
   **`ship` moves it too, and the order is load-bearing.** `implement-ticket`
-  and `bugfix` *invoke* `/colormath:ship`, so both now move the ticket **before**
+  and `bugfix` *invoke* `/impruve:ship`, so both now move the ticket **before**
   the handoff rather than after it: their move says the code is written, and
   taking it through the PR pipeline is ship's move to make, one column further
   on. Left the other way round, ship would move the ticket out of a column
@@ -389,16 +389,16 @@ a board column, a bookmark) stops resolving at that moment.
   settled and read by somebody before the plan existed. `plan-ticket` hands a
   thinly-described ticket back rather than inventing the missing half.
 
-- **`/colormath:plan-initiative`** now loops `plan-ticket` rather than
+- **`/impruve:plan-initiative`** now loops `plan-ticket` rather than
   `refine-ticket`, points a `designing` initiative at `gather-requirements`,
   and flags children whose descriptions are too thin to plan against before
   the run starts rather than seven tickets in.
 
-- **`/colormath:implement-ticket`** sends a ticket with no plan back to
+- **`/impruve:implement-ticket`** sends a ticket with no plan back to
   `plan-ticket`, and a ticket that needs several rounds of questions back to
   `gather-requirements`.
 
-- **`/colormath:ship`** drafts a missing QA plan "the way `plan-ticket` would".
+- **`/impruve:ship`** drafts a missing QA plan "the way `plan-ticket` would".
 
 ### Upgrading
 
@@ -406,10 +406,10 @@ Replace the old commands wherever they are written down:
 
 | Old | New |
 |---|---|
-| `/colormath:refine-ticket <key>` on an ungroomed ticket | `/colormath:gather-requirements <key>`, then `/colormath:plan-ticket <key>` |
-| `/colormath:refine-ticket <key>` on a ticket that just needs plans | `/colormath:plan-ticket <key>` |
-| `/colormath:refine-initiative <key>` | `/colormath:gather-requirements <key>` |
-| `/colormath:refine-ticket <key>` on a **task** | `/colormath:gather-requirements <key>` — and that is the whole of it |
+| `/impruve:refine-ticket <key>` on an ungroomed ticket | `/impruve:gather-requirements <key>`, then `/impruve:plan-ticket <key>` |
+| `/impruve:refine-ticket <key>` on a ticket that just needs plans | `/impruve:plan-ticket <key>` |
+| `/impruve:refine-initiative <key>` | `/impruve:gather-requirements <key>` |
+| `/impruve:refine-ticket <key>` on a **task** | `/impruve:gather-requirements <key>` — and that is the whole of it |
 
 [Abacus](https://github.com/ColorMath/abacus) names every one of these on its
 Product board schema, and that half has already shipped:
@@ -440,7 +440,7 @@ anything. What changed is the one line naming where they come from.
 
 ### Changed
 
-- **The colormath skills now live in `ColorMath/skills`.** They were extracted
+- **The skills now live in their own repo.** They were extracted
   from `ColorMath/ci`, which keeps the gates, the review workflow and the
   vendored consumer files.
 
@@ -459,7 +459,7 @@ anything. What changed is the one line naming where they come from.
    }
   ```
 
-  The plugin's own name is unchanged, so every `/colormath:<skill>` command
+  The plugin's own name is unchanged, so every `/impruve:<skill>` command
   keeps working and `enabledPlugins` is untouched.
 
   MINOR rather than MAJOR on the rule in [LIFECYCLE.md](LIFECYCLE.md): no skill

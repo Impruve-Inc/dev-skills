@@ -1,14 +1,14 @@
 ---
 name: implement-ticket
-description: Take a planned ticket all the way to a shipped PR — check its plan still matches the code, ask only what genuinely blocks, build it at the layer the plan names, execute its QA plan against the running stack, then hand off to /colormath:ship. Use this when someone says to implement, build, do, or work a ticket that has already been groomed, or names a ticket key and says "go". Not for grooming (that's /colormath:gather-requirements, then /colormath:plan-ticket) and not for a defect report (that's /colormath:bugfix).
+description: Take a planned ticket all the way to a shipped PR — check its plan still matches the code, ask only what genuinely blocks, build it at the layer the plan names, execute its QA plan against the running stack, then hand off to /impruve:ship. Use this when someone says to implement, build, do, or work a ticket that has already been groomed, or names a ticket key and says "go". Not for grooming (that's /impruve:gather-requirements, then /impruve:plan-ticket) and not for a defect report (that's /impruve:bugfix).
 argument-hint: [ticket key, e.g. CM-00012]
 allowed-tools: Agent Workflow Bash Read Edit Write Grep Glob Skill AskUserQuestion ToolSearch mcp__abacus__get_ticket mcp__abacus__record_metric mcp__abacus__add_comment mcp__abacus__get_project mcp__abacus__move_ticket mcp__abacus__list_projects mcp__abacus__list_tickets
 ---
 
 Implement the ticket in "$ARGUMENTS", QA it, and ship it.
 
-The ticket has already been groomed — `/colormath:gather-requirements` wrote
-the description, and `/colormath:plan-ticket` wrote an implementation plan
+The ticket has already been groomed — `/impruve:gather-requirements` wrote
+the description, and `/impruve:plan-ticket` wrote an implementation plan
 whose steps name real files and a QA plan someone could execute. **Your job is
 to execute that, not to redo it.** The thinking happened; this is where it
 meets the code.
@@ -34,7 +34,7 @@ decisions made after the plan was written, and they win.
 Then check it can be implemented at all:
 
 - **No implementation plan** — stop. This skill executes a plan; it does not
-  write one. Send them to `/colormath:plan-ticket <key>` and say why: a plan
+  write one. Send them to `/impruve:plan-ticket <key>` and say why: a plan
   written by the run that implements it has never been read by anyone.
 - **No QA plan** — say so and ask whether to continue. You can implement without
   one, but nothing will check the result the way a groomed ticket intends, and
@@ -43,7 +43,7 @@ Then check it can be implemented at all:
 - **A task** — that type carries no plans by design. It is not code work; it is
   a chore somebody does. Say so and stop.
 - **An initiative** — the wrong altitude. Its tickets are what get implemented;
-  `/colormath:plan-initiative` plans them, then this skill takes them one at a
+  `/impruve:plan-initiative` plans them, then this skill takes them one at a
   time.
 
 If the ticket belongs to an initiative, read that too. The initiative says what
@@ -151,8 +151,8 @@ Then scan the plan's steps against each other:
   code in a location the conventions now forbid, will pass review and rot.
 
 Write the results to a progress ledger file at
-`.colormath/sdd/<ticket-key>/progress.md`. Create the directory if it does
-not exist (`mkdir -p`), and ensure `.colormath/` is in the repo's
+`.impruve/sdd/<ticket-key>/progress.md`. Create the directory if it does
+not exist (`mkdir -p`), and ensure `.impruve/` is in the repo's
 `.gitignore` (add it if missing — the workspace is scratch, not source).
 Start the ledger with `# Ledger — ticket: <ticket key>` as its first line. Record the scan
 as a table: one row per pair of adjacent steps that share an interface, and
@@ -178,7 +178,7 @@ cannot proceed:
 One round, `AskUserQuestion`, concrete options, recommendation first. Anything
 you can settle from the ticket, the initiative, the ADRs or the conventions is
 not a question. And if you find yourself wanting several rounds, the ticket is
-not groomed and should go back to `/colormath:gather-requirements` — say that
+not groomed and should go back to `/impruve:gather-requirements` — say that
 instead of interviewing your way to a design.
 
 Handing the ticket back is one of the two good outcomes here, and it has a
@@ -191,7 +191,7 @@ Branch first — `feat/<ticket-key-slug>` or the repo's own convention — never
 the default branch.
 
 For each plan step, write a brief file to
-`.colormath/sdd/<ticket-key>/step-<N>-brief.md`. The brief contains:
+`.impruve/sdd/<ticket-key>/step-<N>-brief.md`. The brief contains:
 
 - The step's full text from the plan, including its Consumes/Produces
   interfaces.
@@ -428,7 +428,7 @@ Agent(branch review, model=opus)
 
 **Context-limit recovery:** if the main agent hits its context limit
 between step dispatches, the resumed session must read the ledger
-(`.colormath/sdd/<ticket-key>/progress.md`), check which steps have
+(`.impruve/sdd/<ticket-key>/progress.md`), check which steps have
 commits on the branch, and continue from the first step that has no
 commit. Do not re-dispatch steps that already committed their work.
 
@@ -513,7 +513,7 @@ If the stack does not start, report the error and return the ticket (move it
 back to the column step 2 took it out of). QA requires a running system. Do not
 skip QA and proceed to ship.
 
-Follow `/colormath:qa`'s recon discipline for identities and seeded data —
+Follow `/impruve:qa`'s recon discipline for identities and seeded data —
 authorization items need the *wrong* role as well as the right one, and one
 admin account proves nothing about access control. **Leave the stack running**
 when you finish QA. The verification audit (step 8) and ship (step 9) both need
@@ -581,7 +581,7 @@ document now says it passed.
 
 ### Persisting QA results
 
-Write QA results to `.colormath/sdd/<ticket-key>/qa-results.md` before
+Write QA results to `.impruve/sdd/<ticket-key>/qa-results.md` before
 proceeding to step 8. The file must contain:
 
 - **Tool availability:** which tools were checked, which were available, and
@@ -632,8 +632,8 @@ sources below.
 
 Ticket key: [key]
 Branch: [branch name]
-Ledger: [path to .colormath/sdd/<ticket-key>/progress.md]
-QA results: [path to .colormath/sdd/<ticket-key>/qa-results.md]
+Ledger: [path to .impruve/sdd/<ticket-key>/progress.md]
+QA results: [path to .impruve/sdd/<ticket-key>/qa-results.md]
 Design reference: [ticket's design reference, or "none"]
 
 Read the ticket (mcp__abacus__get_ticket with the key above) for the
@@ -739,7 +739,7 @@ The ticket has been sitting in the right column since step 2, which is what
 the one behind would be moved from the wrong place.
 
 Run the repo's full local gate mirror once (`make preflight`) so an avoidable
-failure does not cost a CI round trip. Then invoke `/colormath:ship`, which
+failure does not cost a CI round trip. Then invoke `/impruve:ship`, which
 takes it the rest of the way: PR, gates, the review, a second pass over this
 same QA plan against the running stack, fixes for what turns up, either an
 auto-merge when the PR is genuinely clean or a hold with the reason — and the
@@ -760,14 +760,14 @@ When ship comes back, `add_comment` on the ticket with the outcome — the PR
 link, whether it merged or is held, the deviations, the `branchFindings`
 and `cappedFindings` from the workflow result, the **audit note findings
 verbatim**, any rulings recorded in the ledger
-(`.colormath/sdd/<ticket-key>/progress.md`), and any audit findings the human
+(`.impruve/sdd/<ticket-key>/progress.md`), and any audit findings the human
 dismissed or shipped anyway (with the human's choice noted). Extract the rulings
 from the ledger before deleting the workspace. That comment is how the
 ticket stops being a plan and becomes a record. Leave the ticket's own
 fields alone: `plan` and `qa_plan` are what was intended, and the comment
 is what happened.
 
-Delete the workspace directory (`.colormath/sdd/<ticket-key>/`) after
+Delete the workspace directory (`.impruve/sdd/<ticket-key>/`) after
 extracting the rulings. The git history is the record now. Other tickets'
 directories are not yours to touch.
 
@@ -793,7 +793,7 @@ meaningless. The project move in step 2 is deliberately the other way round, and
 the two are not in tension: a column is a claim about what is happening now, so
 it is only useful said early, while a metric is a record of what happened, which
 cannot be written until it has. If you were interrupted, or you sent the ticket
-back to `/colormath:plan-ticket` or `/colormath:gather-requirements` without
+back to `/impruve:plan-ticket` or `/impruve:gather-requirements` without
 building anything, record nothing: a run that did not happen must not leave a
 row saying it did.
 
@@ -809,7 +809,7 @@ take is worse than a missing row.
 
 - **Execute the plan; don't rewrite it.** No re-grooming, no "improving" the
   plan silently. Where it is wrong, rule on it and ledger the ruling.
-- **A ticket with no plan goes back to `/colormath:plan-ticket`.** Writing the
+- **A ticket with no plan goes back to `/impruve:plan-ticket`.** Writing the
   plan and implementing it in the same breath means nobody ever reviewed the
   plan.
 - **Move the ticket when you start, not when you finish.** The column says
@@ -820,7 +820,7 @@ take is worse than a missing row.
 - **QA is executed, not asserted.** Every item gets an observation. Unverified
   is a legitimate result and gets marked; assumed is not.
 - **QA results are persisted.** Write them to
-  `.colormath/sdd/<ticket-key>/qa-results.md` before dispatching the audit.
+  `.impruve/sdd/<ticket-key>/qa-results.md` before dispatching the audit.
   The audit reads this file. It must exist.
 - **Tool availability is verified, not assumed.** Check that browser, HTTP, and
   database tools exist and work before marking any QA item unverified. Record

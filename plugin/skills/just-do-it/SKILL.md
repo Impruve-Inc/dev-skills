@@ -112,7 +112,7 @@ Leave the stack running for ship.
 Run `make preflight` (or the repo's equivalent) to catch avoidable failures
 before CI.
 
-Invoke `/colormath:ship`. It handles the PR, gates, review, a second QA pass,
+Invoke `/impruve:ship`. It handles the PR, gates, review, a second QA pass,
 fixes, the merge decision, and the project move.
 
 Give ship a title naming the change, and a body with: the ticket key, what it
@@ -146,5 +146,5 @@ If there is no ticket, or the call fails, say so and carry on.
   observation against the running system.
 - **One ticket.** Do not fix adjacent bugs, do not create tickets, do not
   implement neighbours. Note them and move on.
-- **Ship handles the PR.** Do not merge by hand. `/colormath:ship` owns the
+- **Ship handles the PR.** Do not merge by hand. `/impruve:ship` owns the
   gates, the review, and the merge decision.

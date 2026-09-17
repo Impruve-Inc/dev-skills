@@ -2,7 +2,7 @@
 ---
 {
   "id": "pppppppp-0000-0000-0000-000000000001",
-  "name": "ColorMath Platform",
+  "name": "Impruve Platform",
   "swimlanes": [
     {
       "id": "sw-req",
@@ -10,7 +10,7 @@
       "exit_commands": [
         {
           "skill": "gather-requirements",
-          "command": "/colormath:gather-requirements",
+          "command": "/impruve:gather-requirements",
           "leads_to": "sw-plan"
         }
       ]
@@ -21,7 +21,7 @@
       "exit_commands": [
         {
           "skill": "plan-ticket",
-          "command": "/colormath:plan-ticket",
+          "command": "/impruve:plan-ticket",
           "leads_to": "sw-impl"
         }
       ]
@@ -32,7 +32,7 @@
       "exit_commands": [
         {
           "skill": "implement-ticket",
-          "command": "/colormath:implement-ticket",
+          "command": "/impruve:implement-ticket",
           "leads_to": "sw-ship"
         }
       ]
@@ -43,7 +43,7 @@
       "exit_commands": [
         {
           "skill": "ship",
-          "command": "/colormath:ship",
+          "command": "/impruve:ship",
           "leads_to": "sw-done"
         }
       ]
@@ -57,7 +57,7 @@
   "repositories": [
     {
       "id": "repo-1",
-      "full_name": "ColorMath/platform"
+      "full_name": "Impruve-Inc/platform"
     }
   ]
 }

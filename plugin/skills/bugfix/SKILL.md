@@ -1,6 +1,6 @@
 ---
 name: bugfix
-description: Take a bug report all the way from raw report to merged fix — establish the facts the report left out (which environment, which surface, the literal repro), reproduce the defect against the running stack, fix it at the layer the invariant belongs to, add a regression test that fails without the fix, assess whether the defect already corrupted stored data and remediate that in the same PR, then hand off to /colormath:ship. Use this whenever someone reports something broken — a ticket key for a filed bug, a bug report, a pasted stack trace or error log, "why is X doing Y", "users can't Z", a production incident, a written-up findings doc — even when they never say the word "bug". Not for sweeping a whole feature area for unknown problems (that's /colormath:qa), and not for shipping a branch that's already fixed (that's /colormath:ship).
+description: Take a bug report all the way from raw report to merged fix — establish the facts the report left out (which environment, which surface, the literal repro), reproduce the defect against the running stack, fix it at the layer the invariant belongs to, add a regression test that fails without the fix, assess whether the defect already corrupted stored data and remediate that in the same PR, then hand off to /impruve:ship. Use this whenever someone reports something broken — a ticket key for a filed bug, a bug report, a pasted stack trace or error log, "why is X doing Y", "users can't Z", a production incident, a written-up findings doc — even when they never say the word "bug". Not for sweeping a whole feature area for unknown problems (that's /impruve:qa), and not for shipping a branch that's already fixed (that's /impruve:ship).
 argument-hint: [a ticket key (CM-00012), or the report itself — prose, a pasted error/log, or a path to a report file]
 allowed-tools: Bash Read Edit Write Grep Glob Skill AskUserQuestion mcp__abacus__get_ticket mcp__abacus__record_metric mcp__abacus__add_comment mcp__abacus__get_project mcp__abacus__move_ticket mcp__abacus__list_projects mcp__abacus__list_tickets
 ---
@@ -295,7 +295,7 @@ the one behind would be moved from the wrong place.
 - Commit on a branch — `fix/<short-slug>` — never on the default branch.
 - Run the repo's full local gate mirror once (`make preflight`) before handing
   off, so an avoidable failure doesn't cost a CI round trip.
-- Then invoke `/colormath:ship`, which takes it the rest of the way: PR, gates,
+- Then invoke `/impruve:ship`, which takes it the rest of the way: PR, gates,
   review, the ticket's QA plan executed against the running stack, fixes for
   anything that turns up, either an auto-merge when it's genuinely clean or a
   hold with the reason — and the next move on the project.
@@ -359,5 +359,5 @@ take is worse than a missing row.
   the cause you found, and what you deliberately left alone. Leave the ticket's
   own fields alone: the description is what was reported, and the comment is
   what happened.
-- Your job ends where `/colormath:ship` takes over, and ship's own rules apply
+- Your job ends where `/impruve:ship` takes over, and ship's own rules apply
   from there.

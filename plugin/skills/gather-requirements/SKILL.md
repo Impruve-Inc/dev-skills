@@ -1,6 +1,6 @@
 ---
 name: gather-requirements
-description: Establish what a ticket or an initiative actually asks for — read it, investigate the code and the architecture it lands in, interview the person who filed it until the picture is complete, then write back a description that stands on its own, and for an initiative, feature definitions someone could pick up. Use this whenever someone wants a ticket or initiative fleshed out, scoped, designed, "made real", or checked before work starts — or names a key and asks what it would actually take. Stops at the requirements: implementation and QA plans belong to /colormath:plan-ticket, and this is the layer above.
+description: Establish what a ticket or an initiative actually asks for — read it, investigate the code and the architecture it lands in, interview the person who filed it until the picture is complete, then write back a description that stands on its own, and for an initiative, feature definitions someone could pick up. Use this whenever someone wants a ticket or initiative fleshed out, scoped, designed, "made real", or checked before work starts — or names a key and asks what it would actually take. Stops at the requirements: implementation and QA plans belong to /impruve:plan-ticket, and this is the layer above.
 argument-hint: [ticket or initiative key, e.g. CM-00001 — or enough of the title to find it]
 allowed-tools: Bash Read Grep Glob AskUserQuestion mcp__abacus__get_ticket mcp__abacus__record_metric mcp__abacus__update_ticket mcp__abacus__add_comment mcp__abacus__add_feature mcp__abacus__update_feature mcp__abacus__move_feature mcp__abacus__get_project mcp__abacus__move_ticket mcp__abacus__list_projects mcp__abacus__list_tickets mcp__abacus__list_members
 ---
@@ -28,7 +28,7 @@ The cure for both is the same, and it is the spine of this skill:
 
 **Stop at the requirements.** No file-by-file steps, no function signatures, no
 DDL, no test lists. If you catch yourself writing `services/billing.py:212`,
-you have dropped an altitude — that is `/colormath:plan-ticket`'s job, done
+you have dropped an altitude — that is `/impruve:plan-ticket`'s job, done
 later, per ticket. Naming a *module* as the home for something is the right
 level here; naming a line is not.
 
@@ -56,7 +56,7 @@ confirm which one you landed on before doing anything else.
     Never propose "just start a fresh initiative to get around the lock" as
     though it were free; the tickets already cut are the reason it is locked.
 - **`feature` or `bug`** — the deliverable is the description. The plans come
-  later, from `/colormath:plan-ticket`.
+  later, from `/impruve:plan-ticket`.
 - **`task`** — the deliverable is the description, and that is *all* it can
   ever be: a task carries no implementation plan and no QA plan by design, and
   `update_ticket` refuses to write one. So this skill is the whole of grooming
@@ -256,7 +256,7 @@ coherent:
    track.
 
 **Leave `plan` and `qa_plan` alone — always.** On a feature or a bug they are
-`/colormath:plan-ticket`'s output and writing them here would skip the step
+`/impruve:plan-ticket`'s output and writing them here would skip the step
 that checks this description against the code. On an initiative they are never
 written at all: an initiative is not implemented directly, and those fields
 belong to the tickets cut from it. On a task the server refuses them outright.
@@ -316,11 +316,11 @@ verified against the code versus assumed, the open questions that survived, and
 (for an initiative) the removals the user still has to make by hand. Then say
 what happens next:
 
-- a **feature or bug** is ready for `/colormath:plan-ticket`, which writes the
+- a **feature or bug** is ready for `/impruve:plan-ticket`, which writes the
   implementation and QA plans that make it startable;
 - an **initiative** waits for **a human to start building** when they are
   ready, which cuts a ticket per feature — you cannot do that and should not
-  offer to. After that, `/colormath:plan-initiative` plans the children.
+  offer to. After that, `/impruve:plan-initiative` plans the children.
 - a **task** is finished. Say so rather than offering a next step it cannot
   take.
 
@@ -337,7 +337,7 @@ fourth run looks exactly like the first from the outside.
 **Once, at the end, and only if you did the work.** Not on every turn and not
 when you begin — a skill that reports each time it thinks makes the count
 meaningless. If you were interrupted, or you stopped at step 1 because the
-ticket was already gathered and handed it to `/colormath:plan-ticket`, record
+ticket was already gathered and handed it to `/impruve:plan-ticket`, record
 nothing: a run that did not happen must not leave a row saying it did.
 
 ### Who was here
@@ -386,7 +386,7 @@ take is worse than a missing row.
   question round.
 - **Stay above the code.** Problem, shape, structure, layers, invariants,
   ordering, acceptance criteria — yes. File-by-file steps, signatures, DDL,
-  test lists — no. Those are `/colormath:plan-ticket`'s, and writing them here
+  test lists — no. Those are `/impruve:plan-ticket`'s, and writing them here
   means they were never checked against the code by the skill whose job that
   is.
 - **Never write `plan` or `qa_plan`.** Not on a ticket, not on an initiative,

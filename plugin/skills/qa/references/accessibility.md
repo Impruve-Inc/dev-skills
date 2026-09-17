@@ -1,6 +1,6 @@
 # Accessibility probes
 
-The colormath suite runs an `a11y` gate (html-validate over templates), so
+The Impruve suite runs an `a11y` gate (html-validate over templates), so
 structural HTML errors are already caught on every PR. That gate is a floor,
 not a ceiling: it validates markup, and most real accessibility failures are
 behavioral — a control you can't reach by keyboard, a state change nobody

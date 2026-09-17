@@ -61,7 +61,7 @@ jobs:
 
       # Note: pushes made with GITHUB_TOKEN do not trigger further workflows, so
       # CI will not re-run on the release commit. That is fine and deliberate —
-      # ci.yml's `gates` job pins colormath-ref to github.sha and so never
+      # ci.yml's `gates` job pins the CI ref to github.sha and so never
       # exercises the stamps anyway, cut.sh required CI to be green on the
       # commit being released, and verify.sh --expect ran against the exact tree
       # that got tagged.

@@ -4,7 +4,7 @@ tags:
   - assess-risk
   - should-proceed
 execution:
-  prompt: "/colormath:assess-risk CM-00705"
+  prompt: "/impruve:assess-risk CM-00705"
   model: claude-sonnet-4-6
   max_turns: 30
   timeout_seconds: 600

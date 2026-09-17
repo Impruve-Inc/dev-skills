@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Cut a colormath release: stamp, commit, tag, push, publish. One gesture.
+# Cut an Impruve release: stamp, commit, tag, push, publish. One gesture.
 #
 # Inherited from ColorMath/ci, where a release is a contract: consumers pin an
 # exact tag, so a version stamped into main but never tagged left every

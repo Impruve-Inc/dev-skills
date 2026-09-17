@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Shared helpers for the colormath-skills release scripts. Sourced, never executed.
+# Shared helpers for the Impruve dev-skills release scripts. Sourced, never executed.
 #
 # Everything that knows *where* a version is written down lives here, in the
 # read_*/write_* pairs below. Adding a new stamp site means adding one pair and
@@ -11,7 +11,7 @@
 #
 # This repo has exactly **one** machine-read stamp site — plugin.json's version,
 # which is the number Claude Code shows in `/plugin`. The other two sites
-# (gates.yml's colormath-ref default and Makefile.colormath's COLORMATH_REF)
+# (gates.yml's CI ref default and Makefile's CI ref)
 # stayed behind in ColorMath/ci with the gates they pin. One site makes "the
 # sites agree with each other" trivially true, so the load-bearing half of the
 # invariant is the rest — that the stamp equals the newest reachable tag, and

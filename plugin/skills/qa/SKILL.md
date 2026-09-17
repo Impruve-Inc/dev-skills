@@ -1,6 +1,6 @@
 ---
 name: qa
-description: Thoroughly QA a feature against the running platform — bring the stack up, find seeded accounts at every privilege tier, then probe correctness, security, and accessibility, proving each finding before reporting it. Produces a ranked findings list you pick from, fixes what you pick, and hands off to /colormath:ship. Use this whenever the user wants to QA, test, audit, review, or "go through" a feature or area of the platform, asks "what's broken in X" or "is X solid", wants a pre-release or pre-demo check, or mentions a QA round — even when they never say the word "QA".
+description: Thoroughly QA a feature against the running platform — bring the stack up, find seeded accounts at every privilege tier, then probe correctness, security, and accessibility, proving each finding before reporting it. Produces a ranked findings list you pick from, fixes what you pick, and hands off to /impruve:ship. Use this whenever the user wants to QA, test, audit, review, or "go through" a feature or area of the platform, asks "what's broken in X" or "is X solid", wants a pre-release or pre-demo check, or mentions a QA round — even when they never say the word "QA".
 argument-hint: [focus area, e.g. "the invite flow" or "the MCP endpoints"]
 allowed-tools: Bash Read Edit Write Grep Glob Skill AskUserQuestion
 ---
@@ -93,7 +93,7 @@ why. Chase the finding until you can state the actual chain.
 **Establish whether it's pre-existing.** Before attributing anything to recent
 work, check it against a clean tree (`git stash -u`, re-run, restore) or
 against the base branch. This applies to failing tests and lint errors too:
-`make preflight` mirrors the colormath gates locally, but local tool versions
+`make preflight` mirrors the Impruve gates locally, but local tool versions
 drift from CI, so a gate that fails locally and passes in CI is an environment
 artifact, not a finding. When they disagree, CI is the authority — say so
 rather than "fixing" a phantom.
@@ -149,7 +149,7 @@ baseline from step 3 matches. QA that leaves debris behind poisons the next
 person's run — and if you flipped a provider or a feature flag, leaving it
 flipped is its own outage waiting to happen.
 
-Show the user the restored state, then invoke `/colormath:ship` (the `ship`
+Show the user the restored state, then invoke `/impruve:ship` (the `ship`
 skill) to open the PR, watch the gates, and triage review. Shipping stops at a
 merge recommendation; merging stays the user's decision.
 
@@ -159,7 +159,7 @@ If the user declined every finding, don't ship — summarize and stop.
 plugin finishes by recording a `skill_invoked` metric against the ticket it was
 run on. This one has no ticket: it takes a focus area and sweeps it for problems
 nobody has filed yet, which is the whole difference between it and
-`/colormath:bugfix`. `record_metric` needs a `ticket_id`, and the only way to
+`/impruve:bugfix`. `record_metric` needs a `ticket_id`, and the only way to
 give it one would be to pick a ticket the round touched — a measurement filed
 against work it was not a measurement of.
 

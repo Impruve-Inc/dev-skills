@@ -4,7 +4,7 @@ tags:
   - just-do-it
   - should-proceed
 execution:
-  prompt: "/colormath:just-do-it CM-00101"
+  prompt: "/impruve:just-do-it CM-00101"
   model: claude-sonnet-4-6
   max_turns: 8
   timeout_seconds: 120

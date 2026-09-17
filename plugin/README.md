@@ -1,17 +1,17 @@
-# colormath plugin
+# impruve plugin
 
-Claude Code skills for repos built on the colormath (ColorMath/ci) shared
+Claude Code skills for repos built on the Impruve shared
 infrastructure. Install via the marketplace at the repo root — see the
 [main README](../README.md#install) — then invoke each
-skill as `/colormath:<skill>`.
+skill as `/impruve:<skill>`.
 
-Skills here encode the colormath *contract* — gate check names, comment
+Skills here encode the Impruve *contract* — gate check names, comment
 markers, make endpoints. That's the test for whether a skill belongs in this
 plugin: if it would work in any repo, it goes elsewhere; if it greps for
 `gates / *` or `## Thermonuclear Review`, it lives here, so a release that
 changes the contract ships the matching skill change in the same diff.
 
-## `/colormath:ship` — PR pipeline end to end
+## `/impruve:ship` — PR pipeline end to end
 
 Takes the current branch through the full PR pipeline and stops at a
 recommendation:
@@ -21,7 +21,7 @@ recommendation:
 2. **Watch the gates** — polls until every `gates / *` check is green; on a
    red gate it reads the failing job's logs, fixes the cause on the branch,
    pushes, and re-watches.
-3. **Wait for review** — if the repo calls colormath's review workflow, waits
+3. **Wait for review** — if the repo calls the Impruve review workflow, waits
    for the `review / review` check and reads the `## Thermonuclear Review`
    comment (plus any formal/human reviews and inline comments — full bodies,
    never truncated). Skips this wait, and says so, in repos without the
@@ -63,9 +63,9 @@ PR comment first) — otherwise it holds and explains.
 **Prerequisites:**
 
 - An authenticated `gh` CLI with push access to the repo.
-- The colormath gates caller (`.github/workflows/gates.yml`) — step 2 keys on
+- The Impruve gates caller (`.github/workflows/gates.yml`) — step 2 keys on
   the `gates / *` check names it produces.
-- Optional: the colormath review caller (job named `review`, per the adoption
+- Optional: the Impruve review caller (job named `review`, per the adoption
   docs) — step 3 keys on the `review / review` check and the
   `## Thermonuclear Review` comment marker. Without it, step 7 always holds:
   QA alone does not carry a merge.
@@ -74,7 +74,7 @@ PR comment first) — otherwise it holds and explains.
   from or recorded on the ticket.
 - For step 4, a locally runnable stack (run commands + ports in
   `AGENTS.md` / `CLAUDE.md`) and seeded accounts — same prerequisites as
-  `/colormath:qa`, whose `references/` it reuses. A browser is optional: UI
+  `/impruve:qa`, whose `references/` it reuses. A browser is optional: UI
   checklist items are driven through one when reachable and marked `⚠️`
   unverified when not.
 - The skill's `allowed-tools` are broad (`Bash`, plus read/edit/write, `Skill`,
@@ -83,9 +83,9 @@ PR comment first) — otherwise it holds and explains.
   `.claude/settings.json` permissions to avoid prompts (see intendent for a
   worked example).
 
-## `/colormath:qa` — QA a feature, then ship the fixes
+## `/impruve:qa` — QA a feature, then ship the fixes
 
-Takes a focus area (`/colormath:qa the invite flow`) and QAs it against the
+Takes a focus area (`/impruve:qa the invite flow`) and QAs it against the
 **running** stack, on the principle that a finding is a claim about a running
 system and only counts once you've reproduced it:
 
@@ -107,7 +107,7 @@ system and only counts once you've reproduced it:
    what came back clean and what wasn't covered; you pick what to fix.
 6. **Fix, restore, ship** — re-runs each original repro against the running
    system (a green unit test isn't proof the bug is gone), undoes its test
-   data and config changes, then hands off to `/colormath:ship`.
+   data and config changes, then hands off to `/impruve:ship`.
 
 Local state is fair game — it writes rows, uploads files, mints credentials —
 but it stops and asks before anything leaves the machine, because a dev `.env`
@@ -121,11 +121,11 @@ often holds a live provider key.
 - `make preflight` and the `gates / *` check names — step 4 uses them to tell
   a genuine finding from local tool-version drift, and defers to CI when the
   two disagree.
-- `/colormath:ship` for the handoff in step 6.
+- `/impruve:ship` for the handoff in step 6.
 
-## `/colormath:bugfix` — a bug report, all the way to a merged fix
+## `/impruve:bugfix` — a bug report, all the way to a merged fix
 
-Takes a bug report (`/colormath:bugfix users can't log in with the account
+Takes a bug report (`/impruve:bugfix users can't log in with the account
 they just created`) and carries it end to end, on the principle that a report
 is *evidence, not a specification* — the expensive failure is forming a
 plausible theory and proving it against the wrong environment or surface:
@@ -163,21 +163,21 @@ plausible theory and proving it against the wrong environment or surface:
    migration tested against locally-constructed broken data, and hands over
    what no script can recover instead of guessing at it.
 6. **Ship** — commits to `fix/<slug>`, runs `make preflight` once, then hands
-   off to `/colormath:ship` with a PR body carrying the report, the repro, the
+   off to `/impruve:ship` with a PR body carrying the report, the repro, the
    cause, why the fix sits at that layer, and the remediation.
 
 **Prerequisites:**
 
 - A locally runnable stack with run commands and ports in `AGENTS.md` /
   `CLAUDE.md`, and seeded accounts at several privilege tiers — same
-  prerequisites as `/colormath:qa`, whose `references/recon.md` step 2 reads.
-- `make preflight` (step 6) and `/colormath:ship` for the handoff.
+  prerequisites as `/impruve:qa`, whose `references/recon.md` step 2 reads.
+- `make preflight` (step 6) and `/impruve:ship` for the handoff.
 - A browser is optional but makes UI-surface reproduction far more direct.
 
-## `/colormath:gather-requirements` — settle what is being asked for
+## `/impruve:gather-requirements` — settle what is being asked for
 
 Takes a ticket **or an initiative** key
-(`/colormath:gather-requirements CM-00001`) and establishes what the work
+(`/impruve:gather-requirements CM-00001`) and establishes what the work
 actually asks for, on the principle that a ticket is *a reminder, not a
 specification* and an initiative is *a direction, not a design* — each carries
 the trigger its author wrote down and none of the context they had in their
@@ -224,7 +224,7 @@ head:
    `update_feature` / `add_feature` / `move_feature`.
 
 It **stops at the requirements**. No file-by-file steps, no signatures, no DDL,
-no test lists — that is `/colormath:plan-ticket`'s altitude, and it
+no test lists — that is `/impruve:plan-ticket`'s altitude, and it
 **never writes `plan` or `qa_plan`**, on any type. Naming a *module* as the
 home for something is the right level here; naming a line is not. It never
 bends an architectural rule silently: if the work needs one to move, that is a
@@ -251,9 +251,9 @@ so it always sends the title.
 - Nothing else: no running stack, no `gh`, no gates. The deliverable is the
   ticket.
 
-## `/colormath:plan-ticket` — plan a gathered ticket until it can be worked
+## `/impruve:plan-ticket` — plan a gathered ticket until it can be worked
 
-Takes a ticket key (`/colormath:plan-ticket CM-00001`) and turns a ticket whose
+Takes a ticket key (`/impruve:plan-ticket CM-00001`) and turns a ticket whose
 requirements are settled into one somebody could start on Monday. The failure
 mode it exists to prevent is **the plan of generic steps** — "update the
 relevant service", "add tests", "verify it works" — which names nothing, could
@@ -266,7 +266,7 @@ can catch:
    stop here with a pointer. Then it checks the requirements are actually
    settled — can you say from the ticket alone what problem this solves, what
    "done" looks like, and what is out of scope — and hands back to
-   `/colormath:gather-requirements` rather than inventing the missing half.
+   `/impruve:gather-requirements` rather than inventing the missing half.
 2. **Investigate the code, at the altitude gathering avoided** — which files
    actually change and in what order, which *layer* the change belongs at and
    why there rather than where the symptom appears, what else reaches that code
@@ -287,7 +287,7 @@ can catch:
    the edges the change introduces, regression surface, data written under the
    old behavior, accessibility, post-deploy checks; then splits what the test
    suite covers from what needs hands, and names the gates the change
-   implicates. Written knowing `/colormath:ship` will execute it verbatim
+   implicates. Written knowing `/impruve:ship` will execute it verbatim
    against a running stack.
 6. **Show, confirm, write back** — drafts in chat first, calls out any text it
    would overwrite that it didn't write, then on approval writes **two**
@@ -314,9 +314,9 @@ instead of a dutiful plan.
 - Nothing else: no running stack, no `gh`, no gates. The deliverable is the
   ticket.
 
-## `/colormath:plan-initiative` — plan a whole initiative, in order
+## `/impruve:plan-initiative` — plan a whole initiative, in order
 
-Takes an initiative key (`/colormath:plan-initiative CM-00007`) and runs
+Takes an initiative key (`/impruve:plan-initiative CM-00007`) and runs
 `plan-ticket` over every ticket under it, one at a time, in build order:
 
 1. **Check it can be planned** — it is an initiative, and its tickets exist. They
@@ -331,7 +331,7 @@ Takes an initiative key (`/colormath:plan-initiative CM-00007`) and runs
    is a long session, and someone who knows that up front can say "just the
    first three today".
 3. **Plan each one with its place in the sequence** — invokes
-   `/colormath:plan-ticket` with the key first, then the context that skill
+   `/impruve:plan-ticket` with the key first, then the context that skill
    cannot see: the initiative and its settled decisions, "ticket 3 of 7", what
    came **before** it and *what those plans actually decided*, what comes
    **after** it so this one doesn't absorb it, and the feature definition it was
@@ -357,9 +357,9 @@ building.
 `plan-ticket` call does a real code pass), and an initiative that has already
 started building. Nothing else.
 
-## `/colormath:assess-risk` — rate a ticket against the engineering-risk rubric
+## `/impruve:assess-risk` — rate a ticket against the engineering-risk rubric
 
-Takes a ticket key (`/colormath:assess-risk CM-00012`) and answers the one
+Takes a ticket key (`/impruve:assess-risk CM-00012`) and answers the one
 question a groomed ticket does not: **how badly can this go wrong?** A ticket
 already says what it is, where it is, what it is for and what somebody intends
 to do about it. Two features with identical plans and identical QA plans are
@@ -414,9 +414,9 @@ done. Plus a checkout of the repo the ticket is about: step 3 is a real code
 pass, and without one every rationale is the sentence this skill exists to
 prevent.
 
-## `/colormath:implement-ticket` — build a planned ticket and ship it
+## `/impruve:implement-ticket` — build a planned ticket and ship it
 
-Takes a ticket key (`/colormath:implement-ticket CM-00012`) and takes a groomed
+Takes a ticket key (`/impruve:implement-ticket CM-00012`) and takes a groomed
 ticket the rest of the way. The thinking already happened in
 `gather-requirements` and `plan-ticket`; this is where it meets the code:
 
@@ -451,13 +451,13 @@ ticket the rest of the way. The thinking already happened in
 6. **Execute the QA plan against the running stack** — every item gets an
    observation, `⚠️` when no browser is reachable for a UI item, and a failure is
    fixed and re-run rather than shipped with the document claiming it passed.
-7. **Ship** — `make preflight`, then `/colormath:ship` for PR, gates, review, a
+7. **Ship** — `make preflight`, then `/impruve:ship` for PR, gates, review, a
    second pass over the same QA plan, and the merge decision. Comments the
    outcome back onto the ticket.
 
 It leaves the ticket's own fields alone: `plan` and `qa_plan` are the record of
 intent, the comment is the record of what happened. The **lane** it does change,
-and only that: one move in, at step 2, and `/colormath:ship` makes the next one
+and only that: one move in, at step 2, and `/impruve:ship` makes the next one
 a column further on. That used to be forbidden, for a good reason — lane meaning
 was free text, so one project's "In Review" was another's "Staging" and guessing
 at somebody's workflow was worse than leaving the ticket alone. Abacus columns
@@ -466,12 +466,12 @@ them, so there is nothing left to guess. A run that hands the ticket back
 instead of building puts it where it found it.
 
 **Prerequisites:** the **Abacus MCP server**, a checkout with the stack runnable
-(step 6 is real QA, not a test run), and `/colormath:ship`'s own prerequisites,
+(step 6 is real QA, not a test run), and `/impruve:ship`'s own prerequisites,
 since it hands off there.
 
-## `/colormath:just-do-it` — build and ship a small ticket in one session
+## `/impruve:just-do-it` — build and ship a small ticket in one session
 
-Takes a ticket key (`/colormath:just-do-it CM-00012`) and takes it all the way
+Takes a ticket key (`/impruve:just-do-it CM-00012`) and takes it all the way
 in one session, skipping `gather-requirements` and `plan-ticket` entirely. The
 normal flow is the right weight for most work and too much ceremony for the
 rest: a ticket that says "add a `deleted_at` column to `organizations`" does not
@@ -491,7 +491,7 @@ need three skills to tell it what it already knows.
    column whose `exit_commands` name `implement-ticket`, before the building
    starts rather than after.
 4. **Build it**, on a branch, in the idiom of the surrounding code.
-5. **QA it**, then **ship** through `/colormath:ship` for PR, gates, review and
+5. **QA it**, then **ship** through `/impruve:ship` for PR, gates, review and
    the merge decision.
 
 A thin description is fine here, which is the whole point — the thinking
@@ -501,13 +501,13 @@ handed back at step 1, before a branch exists, rather than quietly becoming an
 unplanned three-module change.
 
 **Prerequisites:** the **Abacus MCP server**, a checkout with the stack
-runnable, and `/colormath:ship`'s own prerequisites, since it hands off there.
+runnable, and `/impruve:ship`'s own prerequisites, since it hands off there.
 
 ## Adding a skill
 
 One directory per skill: `skills/<name>/SKILL.md` with frontmatter
 (`name`, `description`, optional `argument-hint` / `allowed-tools` / `model`).
-The directory name is the command name (`/colormath:<name>`). Document the
+The directory name is the command name (`/impruve:<name>`). Document the
 skill in this README, keep it consumer-agnostic (no product names, no
 hardcoded default branch), and note in the changelog which contract surfaces
 it depends on — a rename of any of them must ship with the skill update in

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# The consistency oracle for colormath releases. One script, three modes, used
+# The consistency oracle for Impruve releases. One script, three modes, used
 # by CI on every PR, by cut.sh immediately before it pushes, and by hand to
 # audit tags after the fact.
 #
@@ -138,7 +138,7 @@ verify_doc_placeholders() {
 		':!CHANGELOG.md' \
 		':!release/' 2>/dev/null || true)
 	if [ -n "$hits" ]; then
-		fail "these name a concrete colormath-skills version; docs must stay 'vX.Y.Z' placeholders so they cannot rot:"
+		fail "these name a concrete dev-skills version; docs must stay 'vX.Y.Z' placeholders so they cannot rot:"
 		printf '%s\n' "$hits" >&2
 	else
 		pass "documentation examples are still vX.Y.Z placeholders"

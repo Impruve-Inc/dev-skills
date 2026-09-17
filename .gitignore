@@ -8,8 +8,8 @@ plugin/skills/qa-workspace/
 .DS_Store
 *.swp
 
-# Agent scratch workspace (colormath skills). Not source.
-.colormath/
+# Agent scratch workspace (Impruve skills). Not source.
+.impruve/
 
 # Eval run artifacts. The suite ships; one run of it does not.
 plugin/evals/*/results/

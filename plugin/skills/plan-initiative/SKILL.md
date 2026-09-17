@@ -8,7 +8,7 @@ allowed-tools: Agent Bash Read Grep Glob Skill AskUserQuestion mcp__abacus__get_
 Plan every ticket under the initiative in "$ARGUMENTS", one at a time, until
 the whole initiative is ready to pick up.
 
-Each ticket is planned by `/colormath:plan-ticket`, which already knows how to
+Each ticket is planned by `/impruve:plan-ticket`, which already knows how to
 plan one. **This skill exists for what that one cannot see**: the ticket's
 place in a sequence. Run seven times by hand, `plan-ticket` plans seven
 strangers — it re-derives the same background from scratch each time, asks the
@@ -27,14 +27,14 @@ that is a title fragment rather than a key, find it with `list_projects` then
 `list_tickets` and confirm which one you landed on.
 
 **Check `type` is `initiative`.** If it is an ordinary ticket, this is the wrong
-skill — one ticket is `/colormath:plan-ticket`, and say so.
+skill — one ticket is `/impruve:plan-ticket`, and say so.
 
 **Check it has tickets.** The children are in `get_ticket`'s response; the project
 tools hide them. If there are none:
 
 - `initiative_status` is `designing` — **the tickets have not been cut yet.**
   They are created when a human starts building, one per feature definition. Say
-  that, point at `/colormath:gather-requirements` if the features themselves
+  that, point at `/impruve:gather-requirements` if the features themselves
   still need work, and stop. Do not start building to unblock yourself: it is
   one-way, it locks the feature list, and it is a person's decision.
 - `building` with no children — somebody removed them, or the initiative was
@@ -69,7 +69,7 @@ Note as you go which children have a **description thin enough that planning
 against it would be guesswork**. A ticket cut from a feature definition
 inherits that definition's words, which are usually enough — but not always,
 and `plan-ticket` will hand one back rather than invent the missing half.
-Those need `/colormath:gather-requirements` first, which is a separate,
+Those need `/impruve:gather-requirements` first, which is a separate,
 question-heavy session; flag them in the run you show below rather than
 discovering it seven tickets in.
 
@@ -114,7 +114,7 @@ Show the user the run before spending their attention on it:
 - The reuse ledger: initiative-level findings, in the format
   `plan-ticket` uses (`path:line`, what it does, recommendation).
 - The ordered list of children: which are already planned, which are
-  skippable, which need `/colormath:gather-requirements` first, and how
+  skippable, which need `/impruve:gather-requirements` first, and how
   many will need planning.
 - That each ticket may ask them questions (up to three checkpoints per
   ticket: reuse findings, step shape, full plan).
@@ -125,7 +125,7 @@ subset, plan that subset in order and report the rest as untouched.
 
 ## 3. Plan each ticket, with its place in the sequence
 
-For each ticket that needs it, in order, invoke `/colormath:plan-ticket` with
+For each ticket that needs it, in order, invoke `/impruve:plan-ticket` with
 the key **first** — that is what it resolves on — followed by the context it
 cannot get on its own. Keep the context compact and factual:
 
@@ -160,7 +160,7 @@ approves each ticket's direction as it goes.
 
 **If it hands one back as ungathered**, that is a real answer, not a failure to
 work around. Record the ticket as unfinished with that reason, tell the user it
-needs `/colormath:gather-requirements`, and carry on down the list — the rest
+needs `/impruve:gather-requirements`, and carry on down the list — the rest
 of the initiative does not have to wait for it.
 
 **Carry answers and reuse findings forward.** When it finishes, note two things:

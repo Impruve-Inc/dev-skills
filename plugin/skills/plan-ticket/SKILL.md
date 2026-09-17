@@ -1,6 +1,6 @@
 ---
 name: plan-ticket
-description: Turn a ticket whose requirements are settled into one somebody could start on Monday — read it, investigate the code it touches at file-and-line level, settle the few implementation forks the requirements left open, then write back a file-anchored implementation plan and an executable QA plan. Use this whenever someone wants a ticket planned, made ready, starred, estimated, or "taken from a description to something I can pick up" — or names a ticket key (CM-00001) and asks how it would be built. Not for establishing what is being asked for (that's /colormath:gather-requirements), not for finding unknown problems in a feature (that's /colormath:qa), and not for implementing it — the planned ticket is the deliverable.
+description: Turn a ticket whose requirements are settled into one somebody could start on Monday — read it, investigate the code it touches at file-and-line level, settle the few implementation forks the requirements left open, then write back a file-anchored implementation plan and an executable QA plan. Use this whenever someone wants a ticket planned, made ready, starred, estimated, or "taken from a description to something I can pick up" — or names a ticket key (CM-00001) and asks how it would be built. Not for establishing what is being asked for (that's /impruve:gather-requirements), not for finding unknown problems in a feature (that's /impruve:qa), and not for implementing it — the planned ticket is the deliverable.
 argument-hint: [ticket key, e.g. CM-00001 — or enough of the title to find it]
 allowed-tools: Agent Bash Read Grep Glob AskUserQuestion mcp__abacus__get_ticket mcp__abacus__record_metric mcp__abacus__update_ticket mcp__abacus__add_comment mcp__abacus__get_project mcp__abacus__move_ticket mcp__abacus__list_projects mcp__abacus__list_tickets
 ---
@@ -9,7 +9,7 @@ Plan the ticket named in "$ARGUMENTS" until someone else could pick it up cold
 and build it.
 
 The requirements question — *what is being asked for, and why* — has already
-been answered by `/colormath:gather-requirements`, or by a human who wrote a
+been answered by `/impruve:gather-requirements`, or by a human who wrote a
 description that stands on its own. **Your job is the other half: how it gets
 built, and how anyone knows it worked.** Two fields, and the ticket is shown as
 ready only when it has both.
@@ -39,12 +39,12 @@ confirm which one you landed on.
 - **`feature` or `bug`** — carry on. These are the types that carry plans.
 - **`initiative`** — wrong altitude. An initiative is not implemented directly;
   its plans belong to the tickets cut from it. If it is still `designing`, that
-  is `/colormath:gather-requirements`. If it is `building`, planning its
-  children in order is `/colormath:plan-initiative`. Say which and stop.
+  is `/impruve:gather-requirements`. If it is `building`, planning its
+  children in order is `/impruve:plan-initiative`. Say which and stop.
 - **`task`** — a task is work that isn't code, and it carries **no
   implementation plan and no QA plan by design**: `update_ticket` refuses to
   write either, and a task is never "ready". Say so and stop. Its description
-  is the whole of its grooming, and `/colormath:gather-requirements` owns that.
+  is the whole of its grooming, and `/impruve:gather-requirements` owns that.
 
 Then read all of it: description, existing plan, existing QA plan, **every
 comment**, swimlane, assignee, release, and the initiative it sits under.
@@ -58,7 +58,7 @@ low but it is a real bar: can you say, from the ticket alone, what problem this
 solves, what "done" looks like as something observable, and what is
 deliberately out of scope?
 
-If you can't, **say so and hand back to `/colormath:gather-requirements`**
+If you can't, **say so and hand back to `/impruve:gather-requirements`**
 rather than quietly inventing the missing half. That is the whole point of the
 two skills being two. If the gap is narrow — one ambiguity, one missing
 acceptance criterion — you may settle it in step 3 instead and write it into
@@ -341,7 +341,7 @@ Use this format for each QA item:
   Expected: <observable result>.
 ```
 
-Write it knowing **`/colormath:ship` will execute it verbatim** against a
+Write it knowing **`/impruve:ship` will execute it verbatim** against a
 running stack, and will not edit it. An item that cannot be driven from a
 terminal or a browser is an item that will come back marked unverified.
 
@@ -361,7 +361,7 @@ is. Both are markdown, stored and shown verbatim.
 **Do not write `description`.** Pass only the two plan fields; anything you
 omit keeps its current value. If the investigation showed the description is
 wrong or incomplete, say so in your report and recommend
-`/colormath:gather-requirements` — rewriting it here would silently redefine
+`/impruve:gather-requirements` — rewriting it here would silently redefine
 the ticket under the person who scoped it.
 
 Where the planning produced a decision worth preserving as a record — a
@@ -409,15 +409,15 @@ retried:
   report that claims a move that did not happen.
 
 **Move it even if it was further back than expected.** A ticket still in the
-first column skipped `/colormath:gather-requirements`, which is the user's call
+first column skipped `/impruve:gather-requirements`, which is the user's call
 to make and not yours to refuse — but say which column it came from in the
 comment you leave, so the skipped step is visible rather than silently papered
 over.
 
 Finish by telling the user, in chat: the ticket key, that it is now ready, which
 column it is in now, what you verified against the code versus assumed, the open
-questions that survived, and that `/colormath:implement-ticket` (or
-`/colormath:bugfix`, for a bug) is what takes it from here. Nothing here can
+questions that survived, and that `/impruve:implement-ticket` (or
+`/impruve:bugfix`, for a bug) is what takes it from here. Nothing here can
 delete a ticket — say so plainly if you're asked to.
 
 ## 8. Record that you ran
@@ -434,7 +434,7 @@ the plugin half is configuration and differs per project.
 
 **Once, at the end, and only if you did the work.** Not on every turn and not
 when you begin — a skill that reports each time it thinks makes the count
-meaningless. If you were interrupted, or you handed back to `/colormath:gather-
+meaningless. If you were interrupted, or you handed back to `/impruve:gather-
 requirements` without writing a plan, record nothing: a run that did not happen
 must not leave a row saying it did.
 
@@ -450,7 +450,7 @@ take is worse than a missing row.
 
 - **Check the requirements are settled before planning against them.** A plan
   built on a description that doesn't say what "done" is will be fluent and
-  wrong. Hand back to `/colormath:gather-requirements` rather than inventing
+  wrong. Hand back to `/impruve:gather-requirements` rather than inventing
   the missing half.
 - **Never write `description`.** It is the other skill's field, and the person
   who scoped the ticket owns it.
@@ -465,8 +465,8 @@ take is worse than a missing row.
   ticket as a stated open question or a stated assumption — visibly, where it
   can be contradicted — never silently resolved in your favor.
 - **Don't implement the ticket.** No branches, no code edits, no PRs. The
-  planned ticket is the deliverable; `/colormath:implement-ticket`,
-  `/colormath:bugfix` and `/colormath:ship` take it from there as separate,
+  planned ticket is the deliverable; `/impruve:implement-ticket`,
+  `/impruve:bugfix` and `/impruve:ship` take it from there as separate,
   deliberate acts.
 - **Plan this ticket only.** Don't create, split, reassign or re-type tickets as
   a side effect — if the work is really several tickets, recommend the split and

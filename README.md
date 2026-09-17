@@ -1,8 +1,8 @@
-# colormath skills
+# Impruve skills
 
 The [Claude Code](https://code.claude.com) skills for repos built on the
-colormath shared infrastructure — a plugin marketplace holding one plugin,
-`colormath`, with nine skills that take work from a one-line ticket to a merged
+Impruve shared infrastructure — a plugin marketplace holding one plugin,
+`impruve`, with nine skills that take work from a one-line ticket to a merged
 PR.
 
 The gates these skills key on live in
@@ -12,8 +12,8 @@ lived until v4.2.0. See [Why this is a separate repo](#why-this-is-a-separate-re
 ## Install
 
 ```
-/plugin marketplace add ColorMath/skills
-/plugin install colormath@colormath
+/plugin marketplace add Impruve-Inc/dev-skills
+/plugin install impruve@impruve
 ```
 
 Or have a repo offer it to everyone who opens it, via `.claude/settings.json`:
@@ -21,19 +21,15 @@ Or have a repo offer it to everyone who opens it, via `.claude/settings.json`:
 ```json
 {
   "extraKnownMarketplaces": {
-    "colormath": {
-      "source": { "source": "github", "repo": "ColorMath/skills" }
+    "impruve": {
+      "source": { "source": "github", "repo": "Impruve-Inc/dev-skills" }
     }
   },
   "enabledPlugins": {
-    "colormath@colormath": true
+    "impruve@impruve": true
   }
 }
 ```
-
-**Coming from `ColorMath/ci`?** Change that one `repo` line. The plugin's name
-is unchanged, so every `/colormath:<skill>` command keeps working and
-`enabledPlugins` stays as it is.
 
 **There is no version to pin, and that is deliberate.** Claude Code tracks this
 repo's default branch, so a merge here reaches every install on its next
@@ -48,15 +44,15 @@ Each one's behaviour, prerequisites and contract dependencies are documented in
 
 | Skill | Takes | Does |
 |---|---|---|
-| `/colormath:gather-requirements` | a ticket or initiative key | Settles what is being asked for — investigates enough to ask good questions, interviews until the picture is complete, then writes back a standalone description, and on an initiative its feature definitions too. Writes no plans. |
-| `/colormath:plan-initiative` | an initiative key | Runs `plan-ticket` over every ticket under it, in build order, injecting each one's place in the sequence and what the earlier plans decided — so the seams line up. |
-| `/colormath:plan-ticket` | a ticket key | Plans a gathered ticket until it can be worked — investigates the code at file-and-line level, then writes back a file-anchored implementation plan and an executable QA plan. Writes no description. |
-| `/colormath:assess-risk` | a ticket key | Rates a planned ticket against the engineering-risk rubric the tracker declares — reads the criteria out of the tool, goes and looks at the code each one asks about, then writes one level and one specific rationale per criterion. Advisory: it refuses nothing and moves nothing. |
-| `/colormath:implement-ticket` | a ticket key | Builds a groomed ticket — checks the plan still matches the code, builds at the layer it names, executes the ticket's QA plan against the running stack, hands off to `ship`. |
-| `/colormath:just-do-it` | a ticket key | The fast path, for work already thought through — checks the ticket is genuinely small, then builds and ships it in one session instead of three skills. Hands back rather than guessing when it turns out not to be. |
-| `/colormath:bugfix` | a bug report | Turns a specific report into a merged fix — reproduces it before touching code, fixes at the layer the invariant belongs to, remediates data the bug already corrupted, hands off to `ship`. |
-| `/colormath:qa` | a focus area | QAs it against the running stack across security, correctness and accessibility catalogs, reproduces every finding, hands the fixes to `ship`. |
-| `/colormath:ship` | the current branch | Opens the PR, watches the gates, reads the review, executes the ticket's QA plan, fixes every finding it can, then decides once: auto-merge when genuinely clean, or hold and explain. |
+| `/impruve:gather-requirements` | a ticket or initiative key | Settles what is being asked for — investigates enough to ask good questions, interviews until the picture is complete, then writes back a standalone description, and on an initiative its feature definitions too. Writes no plans. |
+| `/impruve:plan-initiative` | an initiative key | Runs `plan-ticket` over every ticket under it, in build order, injecting each one's place in the sequence and what the earlier plans decided — so the seams line up. |
+| `/impruve:plan-ticket` | a ticket key | Plans a gathered ticket until it can be worked — investigates the code at file-and-line level, then writes back a file-anchored implementation plan and an executable QA plan. Writes no description. |
+| `/impruve:assess-risk` | a ticket key | Rates a planned ticket against the engineering-risk rubric the tracker declares — reads the criteria out of the tool, goes and looks at the code each one asks about, then writes one level and one specific rationale per criterion. Advisory: it refuses nothing and moves nothing. |
+| `/impruve:implement-ticket` | a ticket key | Builds a groomed ticket — checks the plan still matches the code, builds at the layer it names, executes the ticket's QA plan against the running stack, hands off to `ship`. |
+| `/impruve:just-do-it` | a ticket key | The fast path, for work already thought through — checks the ticket is genuinely small, then builds and ships it in one session instead of three skills. Hands back rather than guessing when it turns out not to be. |
+| `/impruve:bugfix` | a bug report | Turns a specific report into a merged fix — reproduces it before touching code, fixes at the layer the invariant belongs to, remediates data the bug already corrupted, hands off to `ship`. |
+| `/impruve:qa` | a focus area | QAs it against the running stack across security, correctness and accessibility catalogs, reproduces every finding, hands the fixes to `ship`. |
+| `/impruve:ship` | the current branch | Opens the PR, watches the gates, reads the review, executes the ticket's QA plan, fixes every finding it can, then decides once: auto-merge when genuinely clean, or hold and explain. |
 
 Every skill that takes a ticket key — `gather-requirements`, `plan-ticket`,
 `plan-initiative`, `assess-risk`, `implement-ticket` and `just-do-it` — needs
@@ -79,7 +75,7 @@ The skills shipped from ColorMath/ci until v4.1.0. They were split out because
 the two halves **propagate in opposite directions**, and one tag stream was
 serving both:
 
-|  | ColorMath/ci (gates) | ColorMath/skills |
+|  | ColorMath/ci (gates) | Impruve-Inc/dev-skills |
 |---|---|---|
 | How a consumer names it | an exact tag: `uses: ColorMath/ci/...@v4.1.0` | a marketplace, no ref |
 | How a change arrives | a dedicated PR the consumer merges | automatically, on next `/plugin` update |

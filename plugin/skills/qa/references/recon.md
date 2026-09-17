@@ -13,7 +13,7 @@ reseeding somebody's working environment is a rude way to open a QA session.
 
 Run commands live in `AGENTS.md` / `CLAUDE.md` — typically a `make up` plus a
 seed target, with the port map documented alongside. Take the ports from there
-rather than guessing; colormath apps deliberately avoid default ports so
+rather than guessing; Impruve apps deliberately avoid default ports so
 several products can run at once.
 
 Useful things to note while you're there:
