@@ -5,11 +5,14 @@ infrastructure. Install via the marketplace at the repo root — see the
 [main README](../README.md#install) — then invoke each
 skill as `/impruve:<skill>`.
 
-Skills here encode the Impruve *contract* — gate check names, comment
-markers, make endpoints. That's the test for whether a skill belongs in this
-plugin: if it would work in any repo, it goes elsewhere; if it greps for
-`gates / *` or `## Thermonuclear Review`, it lives here, so a release that
-changes the contract ships the matching skill change in the same diff.
+This plugin carries Impruve's engineering skills. Most encode the Impruve
+*contract* — gate check names, comment markers, make endpoints — and a skill
+that greps for `gates / *` or `## Thermonuclear Review` lives here so a
+release that changes the contract ships the matching skill change in the same
+diff. It also carries the general skills every Impruve engineer uses in any
+repo, such as `author-skill`, because everyone already has this plugin
+installed. A general skill must not depend on the contract; if it ever needs
+to, it follows the contract rules above.
 
 ## `/impruve:ship` — PR pipeline end to end
 
@@ -503,7 +506,37 @@ unplanned three-module change.
 **Prerequisites:** the **Abacus MCP server**, a checkout with the stack
 runnable, and `/impruve:ship`'s own prerequisites, since it hands off there.
 
+## `/impruve:author-skill` — create or clean up a skill
+
+Takes the workflow to turn into a skill, or the path of a skill to clean up
+(`/impruve:author-skill plugin/skills/just-do-it`). It is Impruve's layer on
+Anthropic's `skill-creator`: skill-creator runs the test cases, grading and
+review viewer, and author-skill adds the standards that caught real failures.
+
+1. **Size the work.** A cleanup that changes no behavior takes the light path,
+   about 4 to 8 agent runs: a list of what the skill does today, hygiene fixes,
+   the repo's evals before and after, and an adversarial review. A new skill or
+   a behavior change takes the full path. Tool names, `allowed-tools` and step
+   wording count as behavior.
+2. **The repo's rules first, then Anthropic's.** It reads README, LIFECYCLE,
+   CHANGELOG and the instructions file, and settles conflicts between a skill,
+   its docs and its evals with the user before writing test cases.
+3. **Test the way users run it.** It tests the models they use, including the
+   smallest, and leaves out tools their app lacks. It uses the repo's eval
+   suite where there is one, and mocks MCP servers with real schemas.
+4. **Fresh-eyes grading and reviews**, from agents that see the raw
+   transcripts, not the author's summary.
+5. **Hands off a report** with the test cases, before-and-after results, review
+   findings and the decisions left for the user.
+
+**Prerequisites:** none beyond the repo. Anthropic's `skill-creator` is used
+when it is installed, and author-skill carries a minimal fallback when it is
+not.
+
 ## Adding a skill
+
+Create or change a skill with `/impruve:author-skill`, and put its handoff
+report in the PR.
 
 One directory per skill: `skills/<name>/SKILL.md` with frontmatter
 (`name`, `description`, optional `argument-hint` / `allowed-tools` / `model`).

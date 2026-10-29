@@ -1,9 +1,10 @@
 # Impruve skills
 
-The [Claude Code](https://code.claude.com) skills for repos built on the
-Impruve shared infrastructure — a plugin marketplace holding one plugin,
-`impruve`, with nine skills that take work from a one-line ticket to a merged
-PR.
+The [Claude Code](https://code.claude.com) skills for Impruve engineering — a
+plugin marketplace holding one plugin, `impruve`. Nine of its skills take work
+from a one-line ticket to a merged PR on repos built on the Impruve shared
+infrastructure. `author-skill` creates and maintains skills to Impruve's
+standards in any repo.
 
 The gates these skills key on live in
 [ColorMath/ci](https://github.com/ColorMath/ci), which is where these skills
@@ -53,6 +54,7 @@ Each one's behaviour, prerequisites and contract dependencies are documented in
 | `/impruve:bugfix` | a bug report | Turns a specific report into a merged fix — reproduces it before touching code, fixes at the layer the invariant belongs to, remediates data the bug already corrupted, hands off to `ship`. |
 | `/impruve:qa` | a focus area | QAs it against the running stack across security, correctness and accessibility catalogs, reproduces every finding, hands the fixes to `ship`. |
 | `/impruve:ship` | the current branch | Opens the PR, watches the gates, reads the review, executes the ticket's QA plan, fixes every finding it can, then decides once: auto-merge when genuinely clean, or hold and explain. |
+| `/impruve:author-skill` | a workflow, or a skill to clean up | Creates or cleans up a skill to Impruve's standards, on top of Anthropic's `skill-creator`: tests it the way users run it, has fresh agents grade and review it, and hands off a report. Works in any repo. |
 
 Every skill that takes a ticket key — `gather-requirements`, `plan-ticket`,
 `plan-initiative`, `assess-risk`, `implement-ticket` and `just-do-it` — needs
