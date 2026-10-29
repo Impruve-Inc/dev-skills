@@ -18,6 +18,23 @@ which still covers the gates. This repo's history begins at the extraction.
 
 ## Unreleased
 
+### Added
+
+- **`/impruve:author-skill`** new skill that creates or cleans up a skill in
+  any repo to Impruve's standards. It builds on Anthropic's `skill-creator` for
+  test cases, grading and the review viewer. On top of that, it adds testing
+  the way users run a skill (their models, including the smallest, and their
+  tools), fresh-eyes grading and reviews, the repo's rules before Anthropic's,
+  and a light path for cleanups that change no behavior. It depends on no
+  contract surface.
+
+### Changed
+
+- **The plugin now also carries general engineering skills.** It holds the
+  skills every Impruve engineer uses in any repo, starting with
+  `author-skill`, alongside the contract skills. `plugin/README.md` states the
+  rule.
+
 ## v5.5.0 — 2026-09-16
 
 ### Added
