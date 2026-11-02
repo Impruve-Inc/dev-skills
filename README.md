@@ -1,5 +1,23 @@
 # Impruve skills
 
+> **This repo has moved.** The skills now live in the private repo
+> [Impruve-Inc/impruve-internal-marketplace](https://github.com/Impruve-Inc/impruve-internal-marketplace),
+> as the `impruve-abacus` plugin in `plugins/impruve-abacus/`. Commands are now
+> `/impruve-abacus:<skill>`, for example `/impruve-abacus:ship`. This repo gets no
+> more changes and will be archived.
+>
+> To switch, remove this marketplace, which also uninstalls the old plugin, then
+> install the new one:
+>
+> ```
+> claude plugin marketplace remove impruve
+> claude plugin marketplace add Impruve-Inc/impruve-internal-marketplace
+> claude plugin install impruve-abacus@impruve-internal-marketplace
+> ```
+>
+> Members of Impruve's Claude organization can also install `impruve-abacus` from
+> the organization's plugin list. Turn on only one copy of these skills.
+
 The [Claude Code](https://code.claude.com) skills for repos built on the
 Impruve shared infrastructure — a plugin marketplace holding one plugin,
 `impruve`, with nine skills that take work from a one-line ticket to a merged
